@@ -40,7 +40,7 @@ class JpegStreamHandler(SimpleHTTPRequestHandler):
             self.send_header("Connection", "close")
             self.send_header("Max-Age", "0")
             self.send_header("Expires", "0")
-            self.send_header("Cache-Control", "no-cache, private")
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0")
             self.send_header("Pragma", "no-cache")
             self.send_header("Content-Type", "multipart/x-mixed-replace; boundary=--BOUNDARYSTRING")
             self.end_headers()
