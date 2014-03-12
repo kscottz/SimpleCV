@@ -195,18 +195,20 @@ class VideoStream():
     framecount = 0
 
 
-    def __init__(self, filename, fps = 25, framefill = True):
+    def __init__(self, filename, fps = 25, fourcc='mjpg', framefill = True):
         (revextension, revname) = filename[::-1].split(".")
         extension = revextension[::-1]
         self.filename = filename
         self.fps = fps
         self.framefill = framefill
-        #if extension == "mpg":
-        self.fourcc = cv.CV_FOURCC('I', 'Y', 'U', 'V')
-            #self.fourcc = 0
-        #else:
-        #  logger.warning(extension + " is not supported for video writing on this platform, sorry");
-        #  return False
+        # this works with AVI
+        if( len(fourcc)==4 ):
+            c4 = fourcc.upper()
+            # works with avi container
+            self.fourcc =  cv.CV_FOURCC(c4[0],c4[1],c4[2],c4[3])
+        else:
+            self.fourccMap["mjpg"]=cv.CV_FOURCC('M','J','P','G')
+
 
 
     def initializeWriter(self, size):
